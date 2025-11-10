@@ -42,8 +42,8 @@ const setupSQL = `
 db.exec(setupSQL);
 
 const insertJobStatement = db.prepare(`
-    INSERT INTO jobs (id, command, state, attempts, max_retries, created_at, updated_at, run_at)
-    VALUES (@id, @command, @state, @attempts, @max_retries, @created_at, @updated_at, @run_at);    
+    INSERT INTO jobs (id, command, state, attempts, max_retries)
+    VALUES (@id, @command, @state, @attempts, @max_retries);    
 `);
 
 const getJobByIdStatement = db.prepare(`SELECT * FROM jobs WHERE id = ?`);
@@ -62,16 +62,13 @@ const updateJobStateStatement =
 const countStatement = db.prepare(`SELECT state, COUNT(*) as count FROM jobs GROUP BY state`);
 
 export const insertJob = (job) => {
-    const now = new Date().toISOString();
+    // const now = new Date().toISOString();
     const payload = {
-        id: job.id,
-        command: job.command,
-        state: job.state || "pending",
-        attempts: job.attempts ?? 0,
-        max_retries: job.max_retries ?? 3,
-        created_at: job.created_at || now,
-        updated_at: job.updated_at || now,
-        run_at: job.run_at || now,
+      id: job.id,
+      command: job.command,
+      state: job.state || "pending",
+      attempts: job.attempts ?? 0,
+      max_retries: job.max_retries ?? 3,
     };
 
     return insertJobStatement.run(payload);
@@ -107,6 +104,11 @@ export const countState = () => {
 export const transaction = (fn) => {
     const tx = db.transaction(fn);
     return tx();
+}
+
+export const getConfigValue = (key, defaultValue = null) => {
+    const row = db.prepare("SELECT value FROM config WHERE key = ?").get(key);
+    return row ? row.value : defaultValue;
 }
 
 export {db};
