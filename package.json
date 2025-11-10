@@ -1,0 +1,27 @@
+{
+  "name": "queuectl",
+  "version": "1.0.0",
+  "main": "queuectl.js",
+  "type": "module",
+  "bin": {
+    "queuectl": "./queuectl.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarthikHK-01/queuectl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarthikHK-01/queuectl/issues"
+  },
+  "homepage": "https://github.com/KarthikHK-01/queuectl#readme",
+  "description": "",
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "commander": "^14.0.2"
+  }
+}
