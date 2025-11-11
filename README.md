@@ -164,6 +164,11 @@ CREATE TABLE IF NOT EXISTS config (
 | Restart after crash      | Jobs persist in DB              |
 | DLQ retry                | Job reappears as `pending`      |
 
+**Run tests using the below command**
+```bash
+node test_flow.js
+```
+
 
 ## Assumptions and tradeoffs
 * SQLite used for persistence for simplicity (no external dependencies).
